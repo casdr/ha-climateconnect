@@ -1,0 +1,45 @@
+---
+set_schedule:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: climateconnect
+    schedule:
+      required: true
+      example: >-
+        {"monday": [{"time": "06:00", "temperature": 65},
+        {"time": "19:00", "temperature": 75}]}
+      selector:
+        object:
+
+get_schedule:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: climateconnect
+
+set_tariff:
+  fields:
+    device_id:
+      required: true
+      selector:
+        device:
+          integration: climateconnect
+    price:
+      required: true
+      example: 0.25
+      selector:
+        number:
+          min: 0
+          max: 10
+          step: 0.0001
+          mode: box
+          unit_of_measurement: EUR/kWh
+    start_date:
+      required: false
+      selector:
+        date:

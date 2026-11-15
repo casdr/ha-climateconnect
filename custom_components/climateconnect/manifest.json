@@ -1,0 +1,20 @@
+{
+  "domain": "climateconnect",
+  "name": "Itho Daalderop ClimateConnect",
+  "codeowners": [
+    "@casdr"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "recorder"
+  ],
+  "documentation": "https://github.com/casdr/ha-climateconnect",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
+  "issue_tracker": "https://github.com/casdr/ha-climateconnect/issues",
+  "loggers": [
+    "custom_components.climateconnect"
+  ],
+  "requirements": [],
+  "version": "0.1.0"
+}

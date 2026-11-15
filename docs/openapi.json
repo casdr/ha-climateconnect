@@ -1,0 +1,2482 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Itho Daalderop ClimateConnect",
+    "version": "unofficial",
+    "description": "Unofficial description of the services the ClimateConnect app uses: the wifi API, the app's Betty Blocks back end and the Azure AD B2C sign-in. Schemas only; values are not included."
+  },
+  "paths": {
+    "/climateforlifeportal.onmicrosoft.com/B2C_1_SignUpandSignIn/SelfAsserted": {
+      "post": {
+        "summary": "POST /climateforlifeportal.onmicrosoft.com/B2C_1_SignUpandSignIn/SelfAsserted",
+        "servers": [
+          {
+            "url": "https://climateforlifeportal.b2clogin.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tx",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "p",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "B2C_1_SignUpandSignIn"
+            }
+          },
+          {
+            "name": "x-csrf-token",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "200"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "logonIdentifier": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "request_type": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/climateforlifeportal.onmicrosoft.com/B2C_1_SignUpandSignIn/api/CombinedSigninAndSignup/confirmed": {
+      "get": {
+        "summary": "GET /climateforlifeportal.onmicrosoft.com/B2C_1_SignUpandSignIn/api/CombinedSigninAndSignup/confirmed",
+        "servers": [
+          {
+            "url": "https://climateforlifeportal.b2clogin.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "csrf_token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tx",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "p",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "B2C_1_SignUpandSignIn"
+            }
+          },
+          {
+            "name": "diags",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/consumer-app/device": {
+      "get": {
+        "summary": "GET /api/consumer-app/device",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "devices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "device_id": {
+                            "type": "string"
+                          },
+                          "serial_number": {
+                            "type": "string"
+                          },
+                          "product_registration": {
+                            "type": "object",
+                            "properties": {
+                              "registration_type": {
+                                "type": "string"
+                              },
+                              "production_date": {
+                                "type": "string"
+                              },
+                              "item_code": {
+                                "type": "string"
+                              },
+                              "item_name": {
+                                "type": "string"
+                              },
+                              "gtin": {
+                                "type": "string"
+                              },
+                              "registration_date": {
+                                "type": "string"
+                              },
+                              "installation_date": {
+                                "type": "string"
+                              },
+                              "warranty_labor_expiration_date": {
+                                "type": "string"
+                              },
+                              "warranty_material_expiration_date": {
+                                "type": "string"
+                              },
+                              "issued_points": {
+                                "type": "integer"
+                              },
+                              "serial_number_status": {
+                                "type": "string"
+                              },
+                              "standard_factory_warranty": {
+                                "nullable": true
+                              },
+                              "warranty_after_registration": {
+                                "nullable": true
+                              },
+                              "addition_warranty": {
+                                "nullable": true
+                              },
+                              "address": {
+                                "type": "string"
+                              },
+                              "installer": {
+                                "type": "object",
+                                "properties": {
+                                  "account_number": {
+                                    "type": "string"
+                                  },
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "full_address": {
+                                    "type": "string"
+                                  },
+                                  "street": {
+                                    "type": "string"
+                                  },
+                                  "housenumber": {
+                                    "type": "integer"
+                                  },
+                                  "housenumber_addition": {
+                                    "type": "string"
+                                  },
+                                  "postal_code": {
+                                    "type": "string"
+                                  },
+                                  "city": {
+                                    "type": "string"
+                                  },
+                                  "email_address": {
+                                    "type": "string"
+                                  },
+                                  "phone_number": {
+                                    "nullable": true
+                                  },
+                                  "website": {
+                                    "type": "string"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/device/{serialNumber}/download/instruction-manual": {
+      "get": {
+        "summary": "GET /api/consumer-app/device/{serialNumber}/download/instruction-manual",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "attachments": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "description": {
+                            "type": "string"
+                          },
+                          "url": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/device/{serialNumber}/get-vacation-mode": {
+      "get": {
+        "summary": "GET /api/consumer-app/device/{serialNumber}/get-vacation-mode",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Uit"
+                    },
+                    "start_date": {
+                      "type": "string"
+                    },
+                    "end_date": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/device/{serialNumber}/malfunction-code-translation": {
+      "get": {
+        "summary": "GET /api/consumer-app/device/{serialNumber}/malfunction-code-translation",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "device_fault_details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "fault_code": {
+                            "type": "integer"
+                          },
+                          "fault_description": {
+                            "type": "string"
+                          },
+                          "fault_message": {
+                            "type": "string"
+                          },
+                          "send_mail": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/device/{serialNumber}/tariff": {
+      "get": {
+        "summary": "GET /api/consumer-app/device/{serialNumber}/tariff",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "start_date": {
+                      "type": "string"
+                    },
+                    "end_date": {
+                      "nullable": true
+                    },
+                    "tariffs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tariff": {
+                            "type": "number"
+                          },
+                          "start_date": {
+                            "type": "string"
+                          },
+                          "end_date": {
+                            "type": "string",
+                            "nullable": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/device/{serialNumber}/vacation-mode": {
+      "post": {
+        "summary": "POST /api/consumer-app/device/{serialNumber}/vacation-mode",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "mode": {
+                      "type": "string",
+                      "example": "Uit"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startdate": {
+                    "type": "string"
+                  },
+                  "mode": {
+                    "type": "string",
+                    "example": "Uit",
+                    "enum": [
+                      "Uit",
+                      "Aan"
+                    ]
+                  },
+                  "enddate": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/consumer-app/push-notifications": {
+      "get": {
+        "summary": "GET /api/consumer-app/push-notifications",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "20"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "0"
+            }
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "full_collection_count": {
+                      "type": "integer"
+                    },
+                    "push_notfications": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/pv-profile/pv-product-profile-types": {
+      "get": {
+        "summary": "GET /api/consumer-app/pv-profile/pv-product-profile-types",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "pv_product_profiles": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "pv_start_limit": {
+                            "type": "number"
+                          },
+                          "pv_stop_limit": {
+                            "type": "number"
+                          },
+                          "pv_clock_schedule": {
+                            "type": "object",
+                            "properties": {
+                              "0": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "1": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "2": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "3": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "4": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "5": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              },
+                              "6": {
+                                "type": "object",
+                                "properties": {
+                                  "0": {
+                                    "type": "integer"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/pv-profile/{serialNumber}": {
+      "get": {
+        "summary": "GET /api/consumer-app/pv-profile/{serialNumber}",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Boiler serial, e.g. GRB…"
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "web_user_profile": {
+                      "type": "object",
+                      "properties": {
+                        "p1_dongle_attached": {
+                          "type": "boolean"
+                        },
+                        "pv_product_profile": {
+                          "nullable": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/tariff": {
+      "post": {
+        "summary": "POST /api/consumer-app/tariff",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200"
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "tariff": {
+                    "type": "object",
+                    "properties": {
+                      "tariff": {
+                        "type": "number"
+                      },
+                      "start_date": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/consumer-app/token": {
+      "post": {
+        "summary": "POST /api/consumer-app/token",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language_code",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "nl"
+            }
+          },
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "token": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/consumer-app/user": {
+      "get": {
+        "summary": "GET /api/consumer-app/user",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "first_name": {
+                          "type": "string"
+                        },
+                        "last_name": {
+                          "type": "string"
+                        },
+                        "phone_number": {
+                          "type": "string"
+                        },
+                        "mailaddress": {
+                          "type": "string"
+                        },
+                        "ean_registered": {
+                          "type": "boolean"
+                        },
+                        "allow_commerce_notifications": {
+                          "type": "boolean"
+                        },
+                        "allow_savings_notifications": {
+                          "type": "boolean"
+                        },
+                        "allow_malfunction_notifications": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/user/address": {
+      "get": {
+        "summary": "GET /api/consumer-app/user/address",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "404": {
+            "description": "HTTP 404",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ]
+      }
+    },
+    "/api/consumer-app/user/clockschedules": {
+      "put": {
+        "summary": "PUT /api/consumer-app/user/clockschedules",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application-id",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "HTTP 204"
+          }
+        },
+        "security": [
+          {
+            "bettySession": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "profile": {
+                    "type": "object",
+                    "properties": {
+                      "clock_schedules": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "schedule": {
+                              "type": "object",
+                              "properties": {
+                                "1": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "6": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "5": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "2": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "4": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "0": {
+                                  "type": "object",
+                                  "properties": {}
+                                },
+                                "3": {
+                                  "type": "object",
+                                  "properties": {}
+                                }
+                              }
+                            },
+                            "date": {
+                              "type": "number"
+                            },
+                            "title": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sso/initiate": {
+      "get": {
+        "summary": "GET /sso/initiate",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "application_id",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "2da3d256-ca0a-4041-84ba-93856efceef9"
+            }
+          },
+          {
+            "name": "redirect",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "climateconnect://login"
+            }
+          },
+          {
+            "name": "ui_locales",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "nl"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "sso": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sso/session/validate": {
+      "get": {
+        "summary": "GET /sso/session/validate",
+        "servers": [
+          {
+            "url": "https://itho-tussenlaag.bettywebblocks.com"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "state",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "refresh_token",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "cookie",
+            "in": "header",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sso/callback": {
+      "post": {
+        "summary": "POST /sso/callback",
+        "servers": [
+          {
+            "url": "https://services.climateforlife.nl"
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "302": {
+            "description": "Redirect to climateconnect://login?token=…",
+            "content": {
+              "text/html": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "code": {
+                    "type": "string"
+                  },
+                  "state": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/BoostBoiler": {
+      "post": {
+        "summary": "POST /api/BoostBoiler",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Serial Number of the connected device",
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "activateBoost",
+                  "serialNumber"
+                ],
+                "type": "object",
+                "properties": {
+                  "activateBoost": {
+                    "type": "boolean"
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "activateBoost": true,
+                "serialNumber": "GRB000000000"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "HTTP 204"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetDeviceMode": {
+      "get": {
+        "summary": "GET /api/GetDeviceMode",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "deviceMode": {
+                          "type": "string",
+                          "example": "Continuous"
+                        },
+                        "schedule": {
+                          "type": "object",
+                          "properties": {
+                            "0": {
+                              "type": "object",
+                              "properties": {
+                                "68400": {
+                                  "type": "integer"
+                                },
+                                "72000": {
+                                  "type": "integer"
+                                }
+                              }
+                            },
+                            "1": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "2": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "3": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "4": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "5": {
+                              "type": "object",
+                              "properties": {}
+                            },
+                            "6": {
+                              "type": "object",
+                              "properties": {}
+                            }
+                          }
+                        },
+                        "serialNumber": {
+                          "type": "string"
+                        },
+                        "temperature": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetDevicePVSettings": {
+      "get": {
+        "summary": "GET /api/GetDevicePVSettings",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "pvDecisionTimeout": {
+                          "type": "number"
+                        },
+                        "pvFunctionActiveAndP1Data": {
+                          "type": "number"
+                        },
+                        "pvSampleTimeout": {
+                          "type": "number"
+                        },
+                        "pvSetpoint": {
+                          "type": "number"
+                        },
+                        "pvSetpointHysteresis": {
+                          "type": "number"
+                        },
+                        "pvStartLimit": {
+                          "type": "number"
+                        },
+                        "pvStopLimit": {
+                          "type": "number"
+                        },
+                        "pvSwitchLimit": {
+                          "type": "number"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetDeviceStatus": {
+      "get": {
+        "summary": "GET /api/GetDeviceStatus",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "boilerContent": {
+                          "type": "number"
+                        },
+                        "boostActive": {
+                          "type": "boolean"
+                        },
+                        "deviceMode": {
+                          "type": "string",
+                          "example": "Continuous"
+                        },
+                        "devicePowerMeasured": {
+                          "type": "number"
+                        },
+                        "deviceSoftwareVersion": {
+                          "type": "string"
+                        },
+                        "deviceState": {
+                          "type": "string",
+                          "example": "Online"
+                        },
+                        "energyConsumption": {
+                          "type": "number"
+                        },
+                        "energySaving": {
+                          "type": "number"
+                        },
+                        "pvPowerConsumption": {
+                          "type": "number"
+                        },
+                        "pvPowerProduction": {
+                          "type": "number"
+                        },
+                        "pvPowerNet": {
+                          "type": "number"
+                        },
+                        "legionellaPreventionTimer": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetEanCode": {
+      "get": {
+        "summary": "GET /api/GetEanCode",
+        "description": "Returns the EAN code of a power grid connection\n\nFrom the API's swagger.json (https://wifi-api.id-c.net/api/swagger.json).",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Payload of GetEanCodeResponseContract",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "eanCode": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Response when the EAN code of power grid connection could not be found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetEnergyConsumption": {
+      "get": {
+        "summary": "GET /api/GetEnergyConsumption",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "interval",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "Day",
+              "enum": [
+                "Day",
+                "Week",
+                "Month",
+                "Year"
+              ]
+            }
+          },
+          {
+            "name": "includePreviousPeriod",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "example": "true"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "consumption": {
+                                "type": "number"
+                              },
+                              "consumptionNotDeliveredToNet": {
+                                "type": "number"
+                              },
+                              "costs": {
+                                "type": "number"
+                              },
+                              "timeStamp": {
+                                "type": "integer"
+                              },
+                              "previousTimeStamp": {
+                                "type": "integer"
+                              },
+                              "pvAverageNetPower": {
+                                "type": "number"
+                              },
+                              "pvActualConPower": {
+                                "type": "number"
+                              },
+                              "pvActualProdPower": {
+                                "type": "number"
+                              },
+                              "previousConsumption": {
+                                "type": "number"
+                              },
+                              "previousConsumptionNotDeliveredToNet": {
+                                "type": "number"
+                              },
+                              "previousCosts": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        },
+                        "deviceId": {
+                          "type": "string"
+                        },
+                        "interval": {
+                          "type": "string",
+                          "example": "Day",
+                          "enum": [
+                            "Day",
+                            "Week",
+                            "Month",
+                            "Year"
+                          ]
+                        },
+                        "serialNumber": {
+                          "type": "string"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetFault": {
+      "get": {
+        "summary": "GET /api/GetFault",
+        "description": "Returns the latest fault of the connected device. \nSerial number for test\n\nFrom the API's swagger.json (https://wifi-api.id-c.net/api/swagger.json).",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "description": "Serial number of the connected device",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payload of GetFaultResponseContract",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "result": {
+                      "required": [
+                        "timeStamp"
+                      ],
+                      "type": "object",
+                      "properties": {
+                        "duration": {
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "errorNumber": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "timeStamp": {
+                          "type": "integer",
+                          "format": "int64"
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Response when the input is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Response when serial number of the connected device is not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetFaultHistory": {
+      "get": {
+        "summary": "GET /api/GetFaultHistory",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "HTTP 200",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/GetSmartGridStatus": {
+      "get": {
+        "summary": "GET /api/GetSmartGridStatus",
+        "description": "Returns the SmartGrid Status details of the connected device\n\nFrom the API's swagger.json (https://wifi-api.id-c.net/api/swagger.json).",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [
+          {
+            "name": "serialNumber",
+            "in": "query",
+            "description": "Serial number of the connected device",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Payload of GetSmartGridStatusResponseContract",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "format": "int32"
+                    },
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "duration": {
+                            "type": "integer",
+                            "format": "int32"
+                          },
+                          "powerConsumption": {
+                            "type": "number",
+                            "format": "double"
+                          }
+                        }
+                      }
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Device with Serial number not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/UpdateDeviceMode": {
+      "post": {
+        "summary": "POST /api/UpdateDeviceMode",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "deviceMode",
+                  "serialNumber"
+                ],
+                "type": "object",
+                "properties": {
+                  "deviceMode": {
+                    "type": "string",
+                    "enum": [
+                      "SmartControl",
+                      "Schedule",
+                      "Continuous",
+                      "Holiday"
+                    ],
+                    "description": "The swagger declares an integer enum 0-4, but its own description and the app use these names."
+                  },
+                  "schedule": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "integer",
+                        "format": "int32"
+                      }
+                    },
+                    "description": "Weekday (Monday = \"0\", Sunday = \"6\") -> seconds after midnight -> temperature in °C. Used with deviceMode Schedule."
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  },
+                  "temperature": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "Water temperature in °C. Used with deviceMode Continuous."
+                  }
+                }
+              },
+              "examples": {
+                "continuous": {
+                  "value": {
+                    "serialNumber": "GRB000000000",
+                    "deviceMode": "Continuous",
+                    "temperature": 65
+                  }
+                },
+                "schedule": {
+                  "value": {
+                    "serialNumber": "GRB000000000",
+                    "deviceMode": "Schedule",
+                    "schedule": {
+                      "0": {
+                        "68400": 75,
+                        "72000": 65
+                      },
+                      "1": {
+                        "61200": 70,
+                        "72000": 75
+                      },
+                      "2": {
+                        "61200": 60
+                      },
+                      "3": {},
+                      "4": {},
+                      "5": {},
+                      "6": {}
+                    }
+                  }
+                },
+                "holiday": {
+                  "value": {
+                    "serialNumber": "GRB000000000",
+                    "deviceMode": "Holiday"
+                  }
+                }
+              }
+            }
+          },
+          "description": "Update Device Mode.\nDeviceMode string values are: \"SmartControl\", \"Schedule\", \"Continuous\", \"Holiday\"\nSchedule contains the day of the week as key (Monday = \"0\", Sunday = \"6\")"
+        },
+        "responses": {
+          "204": {
+            "description": "HTTP 204"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/api/UpdateDevicePVSettings": {
+      "post": {
+        "summary": "POST /api/UpdateDevicePVSettings",
+        "description": "Updates the PV settings of a device\n\nFrom the API's swagger.json (https://wifi-api.id-c.net/api/swagger.json).",
+        "servers": [
+          {
+            "url": "https://wifi-api.id-c.net"
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "required": [
+                  "serialNumber"
+                ],
+                "type": "object",
+                "properties": {
+                  "pvDecisionTimeout": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvFunctionActiveAndP1Data": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvSampleTimeout": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvSetpoint": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvSetpointHysteresis": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvStartLimit": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvStopLimit": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "pvSwitchLimit": {
+                    "type": "number",
+                    "format": "double",
+                    "nullable": true
+                  },
+                  "serialNumber": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Response when the input is wrong",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Response when serial number of the connected device is not found or if update is not successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "example": "0x0000010001"
+                        },
+                        "businessRule": {
+                          "type": "string"
+                        },
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "Device PV settings are updated successfully"
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "JWT from climateconnect://login?token= or /sso/session/validate"
+      },
+      "bettySession": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "state",
+        "description": "session.state from the JWT, sent with the application-id header and the rack.session.bb cookie"
+      }
+    }
+  }
+}

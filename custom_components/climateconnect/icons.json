@@ -1,0 +1,78 @@
+{
+  "entity": {
+    "binary_sensor": {
+      "fault": {
+        "default": "mdi:alert-circle-outline",
+        "state": {
+          "on": "mdi:alert-circle"
+        }
+      }
+    },
+    "datetime": {
+      "vacation_start": {
+        "default": "mdi:airplane-takeoff"
+      },
+      "vacation_end": {
+        "default": "mdi:airplane-landing"
+      }
+    },
+    "number": {
+      "setpoint": {
+        "default": "mdi:thermometer-water"
+      }
+    },
+    "select": {
+      "mode": {
+        "default": "mdi:water-boiler",
+        "state": {
+          "smart_control": "mdi:brain",
+          "schedule": "mdi:calendar-clock",
+          "continuous": "mdi:water-boiler",
+          "holiday": "mdi:beach"
+        }
+      }
+    },
+    "sensor": {
+      "hot_water": {
+        "default": "mdi:water-percent"
+      },
+      "legionella_timer": {
+        "default": "mdi:bacteria-outline"
+      },
+      "last_fault": {
+        "default": "mdi:alert-circle-check-outline"
+      },
+      "tariff": {
+        "default": "mdi:currency-eur"
+      },
+      "connection_state": {
+        "default": "mdi:wifi"
+      }
+    },
+    "switch": {
+      "boost": {
+        "default": "mdi:rocket-launch-outline",
+        "state": {
+          "on": "mdi:rocket-launch"
+        }
+      },
+      "vacation_mode": {
+        "default": "mdi:bag-suitcase-outline",
+        "state": {
+          "on": "mdi:bag-suitcase"
+        }
+      }
+    }
+  },
+  "services": {
+    "set_schedule": {
+      "service": "mdi:calendar-edit"
+    },
+    "get_schedule": {
+      "service": "mdi:calendar-search"
+    },
+    "set_tariff": {
+      "service": "mdi:currency-eur"
+    }
+  }
+}

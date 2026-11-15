@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Inloggen bij ClimateConnect",
+        "description": "Gebruik het e-mailadres en wachtwoord waarmee je inlogt in de ClimateConnect-app.",
+        "data": {
+          "email": "E-mail",
+          "password": "Wachtwoord"
+        },
+        "data_description": {
+          "email": "Het e-mailadres van je ClimateConnect-account.",
+          "password": "Het wachtwoord van je ClimateConnect-account."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Opnieuw inloggen bij ClimateConnect",
+        "description": "ClimateConnect weigerde het wachtwoord voor {email}. Vul het huidige wachtwoord in.",
+        "data": {
+          "password": "Wachtwoord"
+        },
+        "data_description": {
+          "password": "Het wachtwoord van je ClimateConnect-account."
+        }
+      },
+      "reconfigure": {
+        "title": "ClimateConnect-wachtwoord wijzigen",
+        "description": "Vul het huidige wachtwoord voor {email} in. Voeg de integratie opnieuw toe om een ander account te gebruiken.",
+        "data": {
+          "password": "Wachtwoord"
+        },
+        "data_description": {
+          "password": "Het wachtwoord van je ClimateConnect-account."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "ClimateConnect weigerde het e-mailadres of wachtwoord.",
+      "cannot_connect": "ClimateConnect is niet bereikbaar. Probeer het later opnieuw.",
+      "unexpected_page": "Het inloggen toonde een stap die deze integratie niet ondersteunt, zoals tweestapsverificatie of nieuwe gebruiksvoorwaarden. Log één keer in via de ClimateConnect-app en probeer het daarna opnieuw.",
+      "no_boilers": "Dit ClimateConnect-account heeft geen boilers.",
+      "unknown": "Onverwachte fout. Bekijk de logs voor details."
+    },
+    "abort": {
+      "already_configured": "Dit ClimateConnect-account is al ingesteld.",
+      "reauth_successful": "Opnieuw ingelogd.",
+      "reconfigure_successful": "Inloggegevens bijgewerkt.",
+      "wrong_account": "Deze gegevens horen bij een ander ClimateConnect-account."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ClimateConnect-opties",
+        "data": {
+          "update_interval": "Update-interval"
+        },
+        "data_description": {
+          "update_interval": "Seconden tussen statusupdates. Vakantiemodus, storingen en het tarief worden elk kwartier bijgewerkt, de energiegeschiedenis elk uur."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "fault": {
+        "name": "Storing",
+        "state_attributes": {
+          "error_number": {
+            "name": "Foutnummer"
+          },
+          "message": {
+            "name": "Melding"
+          },
+          "description": {
+            "name": "Omschrijving"
+          }
+        }
+      }
+    },
+    "datetime": {
+      "vacation_start": {
+        "name": "Begin vakantie"
+      },
+      "vacation_end": {
+        "name": "Einde vakantie"
+      }
+    },
+    "number": {
+      "setpoint": {
+        "name": "Ingestelde temperatuur"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "Modus",
+        "state": {
+          "smart_control": "Slimme regeling",
+          "schedule": "Schema",
+          "continuous": "Continu",
+          "holiday": "Afwezig"
+        }
+      }
+    },
+    "sensor": {
+      "hot_water": {
+        "name": "Warm water"
+      },
+      "energy_consumption": {
+        "name": "Energieverbruik",
+        "state_attributes": {
+          "statistic_id": {
+            "name": "Statistiek-ID"
+          },
+          "cost_statistic_id": {
+            "name": "Kostenstatistiek-ID"
+          }
+        }
+      },
+      "legionella_timer": {
+        "name": "Legionellapreventie-timer"
+      },
+      "last_fault": {
+        "name": "Laatste storing",
+        "state_attributes": {
+          "error_number": {
+            "name": "Foutnummer"
+          },
+          "message": {
+            "name": "Melding"
+          },
+          "duration": {
+            "name": "Duur"
+          },
+          "history": {
+            "name": "Geschiedenis"
+          }
+        }
+      },
+      "tariff": {
+        "name": "Stroomtarief",
+        "state_attributes": {
+          "start_date": {
+            "name": "Ingangsdatum"
+          }
+        }
+      },
+      "connection_state": {
+        "name": "Verbindingsstatus",
+        "state": {
+          "unknown": "Onbekend",
+          "online": "Online",
+          "online_command": "Online (opdracht)",
+          "sleep": "Slaapstand",
+          "offline": "Offline",
+          "offline_timeout": "Offline (time-out)",
+          "offline_command": "Offline (opdracht)",
+          "connecting": "Verbinden"
+        }
+      }
+    },
+    "switch": {
+      "boost": {
+        "name": "Boost"
+      },
+      "vacation_mode": {
+        "name": "Vakantiemodus"
+      }
+    }
+  },
+  "services": {
+    "set_schedule": {
+      "name": "Schema instellen",
+      "description": "Vervangt het weekschema van de boiler en zet hem in de modus Schema.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "De boiler om te wijzigen."
+        },
+        "schedule": {
+          "name": "Schema",
+          "description": "Per weekdag (monday tot en met sunday) een lijst met schakelmomenten, elk met een tijd en een watertemperatuur in °C. Weggelaten dagen hebben geen schakelmomenten."
+        }
+      }
+    },
+    "get_schedule": {
+      "name": "Schema opvragen",
+      "description": "Geeft de modus en het weekschema van de boiler terug, in het formaat dat Schema instellen gebruikt.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "De boiler om uit te lezen."
+        }
+      }
+    },
+    "set_tariff": {
+      "name": "Tarief instellen",
+      "description": "Stelt het stroomtarief in waarmee ClimateConnect de kosten berekent. Het tarief geldt voor het hele account.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "Een boiler van het account."
+        },
+        "price": {
+          "name": "Prijs",
+          "description": "Prijs per kWh in euro."
+        },
+        "start_date": {
+          "name": "Ingangsdatum",
+          "description": "De dag waarop het tarief ingaat. Standaard: vandaag. ClimateConnect past ook de data van eerdere tarieven aan, dus een datum in het verleden verandert de kostengeschiedenis."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "invalid_auth": {
+      "message": "ClimateConnect weigerde de opgeslagen inloggegevens."
+    },
+    "unexpected_page": {
+      "message": "Het inloggen bij ClimateConnect toonde een niet-ondersteunde pagina bij stap {step}. Updates zijn gepauzeerd tot de integratie opnieuw wordt geladen."
+    },
+    "cannot_connect": {
+      "message": "ClimateConnect is niet bereikbaar: {error}"
+    },
+    "request_refused": {
+      "message": "ClimateConnect weigerde de wijziging: {error}"
+    },
+    "boiler_not_found": {
+      "message": "ClimateConnect kent deze boiler niet."
+    },
+    "not_a_boiler": {
+      "message": "Het gekozen apparaat is geen ClimateConnect-boiler."
+    },
+    "boiler_not_loaded": {
+      "message": "De ClimateConnect-integratie van deze boiler is niet geladen."
+    },
+    "vacation_end_before_start": {
+      "message": "De vakantie moet eindigen na het begin."
+    },
+    "vacation_in_past": {
+      "message": "De vakantieperiode is al voorbij. Stel eerst een nieuw einde in."
+    }
+  },
+  "issues": {
+    "unexpected_sign_in_page": {
+      "title": "Inloggen bij ClimateConnect vraagt aandacht",
+      "description": "Inloggen bij ClimateConnect voor {title} stopte bij een niet-ondersteunde pagina (stap: {step}). Dit gebeurt bij tweestapsverificatie, nieuwe gebruiksvoorwaarden of een gewijzigde inlogpagina. Log één keer in via de ClimateConnect-app en rond eventuele extra stappen af, en laad daarna de integratie opnieuw. Tot dan zijn updates gepauzeerd."
+    }
+  }
+}

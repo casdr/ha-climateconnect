@@ -1,0 +1,24 @@
+{
+  "devices": [
+    {
+      "device_id": "00000000-0000-4000-8000-000000000001",
+      "serial_number": "#GRB000000001",
+      "product_registration": {
+        "registration_type": "merged",
+        "production_date": "2024-10-01",
+        "item_code": "03-00000",
+        "item_name": "Smart-upp boiler 80L Mono",
+        "gtin": "0000000000000",
+        "registration_date": "2025-02-21",
+        "installation_date": "2025-02-20",
+        "issued_points": 40,
+        "serial_number_status": "Bekend serienummer",
+        "address": "Voorbeeldstraat 1\n1234 AB, Voorbeeld",
+        "installer": {
+          "name": "Example Installer",
+          "email_address": "installer@example.com"
+        }
+      }
+    }
+  ]
+}

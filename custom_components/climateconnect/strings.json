@@ -1,0 +1,250 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Sign in to ClimateConnect",
+        "description": "Use the e-mail address and password you use in the ClimateConnect app.",
+        "data": {
+          "email": "E-mail",
+          "password": "Password"
+        },
+        "data_description": {
+          "email": "The e-mail address of your ClimateConnect account.",
+          "password": "The password of your ClimateConnect account."
+        }
+      },
+      "reauth_confirm": {
+        "title": "Sign in to ClimateConnect again",
+        "description": "ClimateConnect rejected the password for {email}. Enter the current password.",
+        "data": {
+          "password": "Password"
+        },
+        "data_description": {
+          "password": "The password of your ClimateConnect account."
+        }
+      },
+      "reconfigure": {
+        "title": "Change ClimateConnect password",
+        "description": "Enter the current password for {email}. To use another account, add the integration again.",
+        "data": {
+          "password": "Password"
+        },
+        "data_description": {
+          "password": "The password of your ClimateConnect account."
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "ClimateConnect rejected the e-mail address or password.",
+      "cannot_connect": "Could not reach ClimateConnect. Try again later.",
+      "unexpected_page": "The sign-in showed a step this integration does not support, such as multi-factor authentication or new terms of use. Sign in once in the ClimateConnect app, then try again.",
+      "no_boilers": "This ClimateConnect account has no boilers.",
+      "unknown": "Unexpected error. See the logs for details."
+    },
+    "abort": {
+      "already_configured": "This ClimateConnect account is already configured.",
+      "reauth_successful": "Signed in again.",
+      "reconfigure_successful": "Sign-in details updated.",
+      "wrong_account": "These credentials belong to a different ClimateConnect account."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "ClimateConnect options",
+        "data": {
+          "update_interval": "Update interval"
+        },
+        "data_description": {
+          "update_interval": "Seconds between status updates. Vacation mode, faults and the tariff update every 15 minutes, energy history every hour."
+        }
+      }
+    }
+  },
+  "entity": {
+    "binary_sensor": {
+      "fault": {
+        "name": "Fault",
+        "state_attributes": {
+          "error_number": {
+            "name": "Error number"
+          },
+          "message": {
+            "name": "Message"
+          },
+          "description": {
+            "name": "Description"
+          }
+        }
+      }
+    },
+    "datetime": {
+      "vacation_start": {
+        "name": "Vacation start"
+      },
+      "vacation_end": {
+        "name": "Vacation end"
+      }
+    },
+    "number": {
+      "setpoint": {
+        "name": "Setpoint"
+      }
+    },
+    "select": {
+      "mode": {
+        "name": "Mode",
+        "state": {
+          "smart_control": "Smart control",
+          "schedule": "Schedule",
+          "continuous": "Continuous",
+          "holiday": "Holiday"
+        }
+      }
+    },
+    "sensor": {
+      "hot_water": {
+        "name": "Hot water"
+      },
+      "energy_consumption": {
+        "name": "Energy consumption",
+        "state_attributes": {
+          "statistic_id": {
+            "name": "Statistic ID"
+          },
+          "cost_statistic_id": {
+            "name": "Cost statistic ID"
+          }
+        }
+      },
+      "legionella_timer": {
+        "name": "Legionella prevention timer"
+      },
+      "last_fault": {
+        "name": "Last fault",
+        "state_attributes": {
+          "error_number": {
+            "name": "Error number"
+          },
+          "message": {
+            "name": "Message"
+          },
+          "duration": {
+            "name": "Duration"
+          },
+          "history": {
+            "name": "History"
+          }
+        }
+      },
+      "tariff": {
+        "name": "Electricity tariff",
+        "state_attributes": {
+          "start_date": {
+            "name": "Start date"
+          }
+        }
+      },
+      "connection_state": {
+        "name": "Connection state",
+        "state": {
+          "unknown": "Unknown",
+          "online": "Online",
+          "online_command": "Online (command)",
+          "sleep": "Sleep",
+          "offline": "Offline",
+          "offline_timeout": "Offline (timeout)",
+          "offline_command": "Offline (command)",
+          "connecting": "Connecting"
+        }
+      }
+    },
+    "switch": {
+      "boost": {
+        "name": "Boost"
+      },
+      "vacation_mode": {
+        "name": "Vacation mode"
+      }
+    }
+  },
+  "services": {
+    "set_schedule": {
+      "name": "Set schedule",
+      "description": "Replaces the boiler's weekly schedule and switches it to Schedule mode.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "The boiler to change."
+        },
+        "schedule": {
+          "name": "Schedule",
+          "description": "Per weekday (monday to sunday) a list of switch moments, each with a time and a water temperature in °C. Days left out have no switch moments."
+        }
+      }
+    },
+    "get_schedule": {
+      "name": "Get schedule",
+      "description": "Returns the boiler's mode and weekly schedule, in the format Set schedule takes.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "The boiler to read."
+        }
+      }
+    },
+    "set_tariff": {
+      "name": "Set tariff",
+      "description": "Sets the electricity tariff ClimateConnect uses to calculate costs. The tariff applies to the whole account.",
+      "fields": {
+        "device_id": {
+          "name": "Boiler",
+          "description": "A boiler of the account."
+        },
+        "price": {
+          "name": "Price",
+          "description": "Price per kWh in euro."
+        },
+        "start_date": {
+          "name": "Start date",
+          "description": "The day the tariff starts. Default: today. ClimateConnect also changes the dates of earlier tariffs, so a date in the past changes the cost history."
+        }
+      }
+    }
+  },
+  "exceptions": {
+    "invalid_auth": {
+      "message": "ClimateConnect rejected the stored credentials."
+    },
+    "unexpected_page": {
+      "message": "The ClimateConnect sign-in showed an unsupported page at step {step}. Updates are paused until the integration is reloaded."
+    },
+    "cannot_connect": {
+      "message": "Could not reach ClimateConnect: {error}"
+    },
+    "request_refused": {
+      "message": "ClimateConnect refused the change: {error}"
+    },
+    "boiler_not_found": {
+      "message": "ClimateConnect does not know this boiler."
+    },
+    "not_a_boiler": {
+      "message": "The selected device is not a ClimateConnect boiler."
+    },
+    "boiler_not_loaded": {
+      "message": "The ClimateConnect integration of this boiler is not loaded."
+    },
+    "vacation_end_before_start": {
+      "message": "The vacation must end after it starts."
+    },
+    "vacation_in_past": {
+      "message": "The vacation period has already ended. Set a new vacation end first."
+    }
+  },
+  "issues": {
+    "unexpected_sign_in_page": {
+      "title": "ClimateConnect sign-in needs attention",
+      "description": "Signing in to ClimateConnect for {title} stopped at an unsupported page (step: {step}). This happens with multi-factor authentication, new terms of use or a changed sign-in page. Sign in once in the ClimateConnect app and complete any extra step, then reload the integration. Updates are paused until then."
+    }
+  }
+}

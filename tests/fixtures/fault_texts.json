@@ -1,0 +1,6 @@
+{
+  "device_fault_details": [
+    {"fault_code": 4, "fault_description": "Temperatuursensor onderin defect.", "fault_message": "Sensorfout", "send_mail": false},
+    {"fault_code": 7, "fault_description": "Verwarmingselement wordt niet warm.", "fault_message": "Elementfout", "send_mail": true}
+  ]
+}

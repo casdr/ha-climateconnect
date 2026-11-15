@@ -1,0 +1,13 @@
+{
+  "result": {
+    "data": [
+      {"consumption": 10.6301776194444, "consumptionNotDeliveredToNet": 0.0, "costs": 2.444940852472212, "timeStamp": 1794700800000},
+      {"consumption": 8.64165225555556, "consumptionNotDeliveredToNet": 0.0, "costs": 1.9875800187777788, "timeStamp": 1794528000000},
+      {"consumption": 9.793363475, "consumptionNotDeliveredToNet": 0.0, "costs": 2.25247359925, "timeStamp": 1794614400000}
+    ],
+    "deviceId": "00000000-0000-4000-8000-000000000001",
+    "interval": "Day",
+    "serialNumber": "GRB000000001"
+  },
+  "message": {"code": "0x0000010001", "message": "Energy consumption loaded"}
+}

@@ -1,0 +1,9 @@
+{
+  "start_date": "2025-02-21",
+  "end_date": null,
+  "tariffs": [
+    {"tariff": 0.31, "start_date": "2025-02-21", "end_date": "2025-06-16"},
+    {"tariff": 0.23, "start_date": "2025-06-17", "end_date": null},
+    {"tariff": 0.19, "start_date": "2099-01-01", "end_date": null}
+  ]
+}

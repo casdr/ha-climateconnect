@@ -1,0 +1,8 @@
+{
+  "count": 2,
+  "results": [
+    {"duration": 120, "errorNumber": 4, "timeStamp": 1790000000000},
+    {"duration": 3600, "errorNumber": 7, "timeStamp": 1793000000000}
+  ],
+  "message": {"code": "0x0000010001", "message": "Faults loaded"}
+}

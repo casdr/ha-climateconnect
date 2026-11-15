@@ -1,0 +1,20 @@
+{
+  "result": {
+    "boilerContent": 0.83,
+    "boostActive": false,
+    "deviceMode": "Continuous",
+    "devicePowerMeasured": 0.0,
+    "deviceSoftwareVersion": "13.61.133",
+    "deviceState": "Online",
+    "energyConsumption": 0.33,
+    "energySaving": 0.0,
+    "pvPowerConsumption": 0.0,
+    "pvPowerProduction": 0.0,
+    "pvPowerNet": 0.0,
+    "legionellaPreventionTimer": 168
+  },
+  "message": {
+    "code": "0x0000010001",
+    "message": "Device Status loaded successfully."
+  }
+}
