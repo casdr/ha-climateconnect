@@ -104,11 +104,34 @@
     },
     "sensor": {
       "hot_water": {
-        "name": "Warm water"
+        "name": "Energieniveau"
       },
-      "energy_consumption": {
-        "name": "Energieverbruik",
+      "energy_today": {
+        "name": "Energie vandaag",
         "state_attributes": {
+          "costs": {
+            "name": "Kosten"
+          },
+          "period_start": {
+            "name": "Begin periode"
+          },
+          "statistic_id": {
+            "name": "Statistiek-ID"
+          },
+          "cost_statistic_id": {
+            "name": "Kostenstatistiek-ID"
+          }
+        }
+      },
+      "energy_yesterday": {
+        "name": "Energie gisteren",
+        "state_attributes": {
+          "costs": {
+            "name": "Kosten"
+          },
+          "period_start": {
+            "name": "Begin periode"
+          },
           "statistic_id": {
             "name": "Statistiek-ID"
           },
@@ -118,7 +141,7 @@
         }
       },
       "legionella_timer": {
-        "name": "Legionellapreventie-timer"
+        "name": "Volgende legionellacyclus"
       },
       "last_fault": {
         "name": "Laatste storing",

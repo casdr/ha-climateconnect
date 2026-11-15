@@ -104,11 +104,34 @@
     },
     "sensor": {
       "hot_water": {
-        "name": "Hot water"
+        "name": "Energy level"
       },
-      "energy_consumption": {
-        "name": "Energy consumption",
+      "energy_today": {
+        "name": "Energy today",
         "state_attributes": {
+          "costs": {
+            "name": "Costs"
+          },
+          "period_start": {
+            "name": "Period start"
+          },
+          "statistic_id": {
+            "name": "Statistic ID"
+          },
+          "cost_statistic_id": {
+            "name": "Cost statistic ID"
+          }
+        }
+      },
+      "energy_yesterday": {
+        "name": "Energy yesterday",
+        "state_attributes": {
+          "costs": {
+            "name": "Costs"
+          },
+          "period_start": {
+            "name": "Period start"
+          },
           "statistic_id": {
             "name": "Statistic ID"
           },
@@ -118,7 +141,7 @@
         }
       },
       "legionella_timer": {
-        "name": "Legionella prevention timer"
+        "name": "Next legionella cycle"
       },
       "last_fault": {
         "name": "Last fault",

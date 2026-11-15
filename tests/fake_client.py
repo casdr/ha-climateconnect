@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from typing import Any
 
 from custom_components.climateconnect.api import (
@@ -61,13 +61,10 @@ class FakeClient:
             7: FaultText(message="Elementfout", description="Element wordt niet warm.")
         }
         self.tariff = Tariff(price=0.23, start=date(2025, 6, 17))
+        today = datetime.now(UTC).replace(hour=0, minute=0, second=0, microsecond=0)
         self.energy = [
-            EnergyDay(
-                start=datetime(2026, 11, 13, tzinfo=UTC), consumption=8.6, costs=1.98
-            ),
-            EnergyDay(
-                start=datetime(2026, 11, 14, tzinfo=UTC), consumption=9.8, costs=2.25
-            ),
+            EnergyDay(start=today - timedelta(days=1), consumption=8.6, costs=1.98),
+            EnergyDay(start=today, consumption=9.8, costs=2.25),
         ]
 
     def _check(self) -> None:

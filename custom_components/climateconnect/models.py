@@ -10,6 +10,7 @@ if TYPE_CHECKING:
         BoilerInfo,
         DeviceModeSettings,
         DeviceStatus,
+        EnergyDay,
         Fault,
         FaultText,
         Tariff,
@@ -28,6 +29,7 @@ class BoilerData:
     faults: list[Fault]
     tariff: Tariff | None
     fault_texts: dict[int, FaultText]
+    energy_days: list[EnergyDay] = field(default_factory=list)
 
     def fault_text(self, error_number: int | None) -> FaultText | None:
         """Return the app's texts for a fault code, if known."""

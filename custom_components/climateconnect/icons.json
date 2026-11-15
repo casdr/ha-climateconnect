@@ -34,10 +34,10 @@
     },
     "sensor": {
       "hot_water": {
-        "default": "mdi:water-percent"
+        "default": "mdi:water-boiler"
       },
       "legionella_timer": {
-        "default": "mdi:bacteria-outline"
+        "default": "mdi:timer-sand"
       },
       "last_fault": {
         "default": "mdi:alert-circle-check-outline"
@@ -47,6 +47,12 @@
       },
       "connection_state": {
         "default": "mdi:wifi"
+      },
+      "energy_today": {
+        "default": "mdi:lightning-bolt"
+      },
+      "energy_yesterday": {
+        "default": "mdi:calendar-today"
       }
     },
     "switch": {

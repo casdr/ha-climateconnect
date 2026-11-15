@@ -275,8 +275,6 @@ class DeviceStatus:
     boost_active: bool | None
     boiler_content: float | None
     power: float | None
-    energy_consumption: float | None
-    energy_saving: float | None
     error_number: int | None
     legionella_prevention_timer: int | None
     software_version: str | None
@@ -292,8 +290,6 @@ class DeviceStatus:
             boost_active=boost if isinstance(boost, bool) else None,
             boiler_content=_float(result.get("boilerContent")),
             power=_float(result.get("devicePowerMeasured")),
-            energy_consumption=_float(result.get("energyConsumption")),
-            energy_saving=_float(result.get("energySaving")),
             error_number=_int(result.get("errorNumber")),
             legionella_prevention_timer=_int(result.get("legionellaPreventionTimer")),
             software_version=_str(result.get("deviceSoftwareVersion")),

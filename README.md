@@ -17,10 +17,10 @@ Per boiler:
 | **Boost** (switch) | Heat the boiler now. |
 | **Vacation mode** (switch) | Turns vacation mode on or off for the period set below. |
 | **Vacation start / end** (date-time) | The vacation period. A start after the current end moves the end a week later. |
-| **Hot water** (sensor) | How full the boiler is with hot water, in percent. |
+| **Energy level** (sensor) | The boiler's energy level in percent, as the app shows it. |
 | **Power** (sensor) | Power the boiler uses now. |
-| **Energy consumption** (sensor) | The energy value the boiler reports. It is not a meter; use the statistics below for the Energy dashboard. |
-| **Legionella prevention timer** (sensor) | Hours on the boiler's legionella timer. |
+| **Energy today / yesterday** (sensor) | Energy use per day (kWh), with the day's costs as an attribute. The service's days start at 00:00 UTC. |
+| **Next legionella cycle** (sensor) | Hours until the next anti-legionella cycle. |
 | **Fault** (binary sensor) | On while the boiler reports a fault, with the code and the app's (Dutch) text. |
 | **Last fault** (sensor) | When the last fault started, with the last 8 faults as attributes. |
 | **Electricity tariff** (sensor) | The price per kWh ClimateConnect uses to calculate costs. |

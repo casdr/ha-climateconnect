@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import TYPE_CHECKING, Any
 
 from homeassistant.components.sensor import (
@@ -21,8 +22,11 @@ from homeassistant.const import (
     UnitOfPower,
     UnitOfTime,
 )
+from homeassistant.helpers import entity_registry as er
+from homeassistant.util import dt as dt_util
 
 from .api import DeviceState
+from .const import DOMAIN
 from .entity import ClimateConnectEntity, async_add_boiler_entities
 from .statistics import CURRENCY, cost_statistic_id, energy_statistic_id
 
@@ -33,10 +37,13 @@ if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 
+    from .api import EnergyDay
     from .coordinator import ClimateConnectConfigEntry, ClimateConnectCoordinator
     from .models import BoilerData
 
 PARALLEL_UPDATES = 0
+
+REMOVED_ENERGY_KEY = "energy_consumption"
 
 DEVICE_STATES = {state: state.name.lower() for state in DeviceState}
 
@@ -49,7 +56,7 @@ class ClimateConnectSensorDescription(SensorEntityDescription):
     attrs_fn: Callable[[BoilerData], dict[str, Any]] | None = None
 
 
-def _hot_water(boiler: BoilerData) -> float | None:
+def _energy_level(boiler: BoilerData) -> float | None:
     content = boiler.status.boiler_content
     return None if content is None else round(content * 100, 1)
 
@@ -84,12 +91,35 @@ def _fault_attrs(boiler: BoilerData) -> dict[str, Any]:
     }
 
 
-def _energy_attrs(boiler: BoilerData) -> dict[str, Any]:
-    serial = boiler.info.serial_number
-    return {
-        "statistic_id": energy_statistic_id(serial),
-        "cost_statistic_id": cost_statistic_id(serial),
-    }
+def _energy_day(boiler: BoilerData, days_ago: int) -> EnergyDay | None:
+    """Return the API's row for today or an earlier day (days start at 00:00 UTC)."""
+    wanted = dt_util.utcnow().date() - timedelta(days=days_ago)
+    return next(
+        (day for day in reversed(boiler.energy_days) if day.start.date() == wanted),
+        None,
+    )
+
+
+def _energy_value(days_ago: int) -> Callable[[BoilerData], float | None]:
+    def value(boiler: BoilerData) -> float | None:
+        day = _energy_day(boiler, days_ago)
+        return day.consumption if day else None
+
+    return value
+
+
+def _energy_attrs(days_ago: int) -> Callable[[BoilerData], dict[str, Any]]:
+    def attrs(boiler: BoilerData) -> dict[str, Any]:
+        day = _energy_day(boiler, days_ago)
+        serial = boiler.info.serial_number
+        return {
+            "costs": day.costs if day else None,
+            "period_start": day.start.isoformat() if day else None,
+            "statistic_id": energy_statistic_id(serial),
+            "cost_statistic_id": cost_statistic_id(serial),
+        }
+
+    return attrs
 
 
 def _tariff_attrs(boiler: BoilerData) -> dict[str, Any]:
@@ -99,12 +129,13 @@ def _tariff_attrs(boiler: BoilerData) -> dict[str, Any]:
 
 SENSORS: tuple[ClimateConnectSensorDescription, ...] = (
     ClimateConnectSensorDescription(
+        # The key predates the name: the app calls this the boiler's energy level.
         key="hot_water",
         translation_key="hot_water",
         native_unit_of_measurement=PERCENTAGE,
         state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=0,
-        value_fn=_hot_water,
+        value_fn=_energy_level,
     ),
     ClimateConnectSensorDescription(
         key="power",
@@ -117,14 +148,23 @@ SENSORS: tuple[ClimateConnectSensorDescription, ...] = (
         value_fn=lambda boiler: boiler.status.power,
     ),
     ClimateConnectSensorDescription(
-        key="energy_consumption",
-        translation_key="energy_consumption",
-        # Not a meter: it does not follow the daily totals. The Energy dashboard
-        # uses the imported statistics instead (see the attributes).
+        key="energy_today",
+        translation_key="energy_today",
+        device_class=SensorDeviceClass.ENERGY,
+        native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
+        state_class=SensorStateClass.TOTAL_INCREASING,
+        suggested_display_precision=2,
+        value_fn=_energy_value(0),
+        attrs_fn=_energy_attrs(0),
+    ),
+    ClimateConnectSensorDescription(
+        key="energy_yesterday",
+        translation_key="energy_yesterday",
+        device_class=SensorDeviceClass.ENERGY,
         native_unit_of_measurement=UnitOfEnergy.KILO_WATT_HOUR,
         suggested_display_precision=2,
-        value_fn=lambda boiler: boiler.status.energy_consumption,
-        attrs_fn=_energy_attrs,
+        value_fn=_energy_value(1),
+        attrs_fn=_energy_attrs(1),
     ),
     ClimateConnectSensorDescription(
         key="legionella_timer",
@@ -161,11 +201,19 @@ SENSORS: tuple[ClimateConnectSensorDescription, ...] = (
 
 
 async def async_setup_entry(
-    _hass: HomeAssistant,
+    hass: HomeAssistant,
     entry: ClimateConnectConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     """Set up the sensors of every boiler."""
+    # Version 0.1.1 and earlier had an energy consumption sensor. The value is the
+    # app's relative usage gauge, not energy, so the sensor was removed.
+    registry = er.async_get(hass)
+    for serial in entry.runtime_data.data.boilers:
+        if entity_id := registry.async_get_entity_id(
+            "sensor", DOMAIN, f"{serial}_{REMOVED_ENERGY_KEY}"
+        ):
+            registry.async_remove(entity_id)
 
     def create(
         coordinator: ClimateConnectCoordinator, serial: str

@@ -46,6 +46,7 @@ if TYPE_CHECKING:
     from .api import (
         BoilerInfo,
         DeviceMode,
+        EnergyDay,
         Fault,
         FaultText,
         Schedule,
@@ -142,6 +143,7 @@ class ClimateConnectCoordinator(DataUpdateCoordinator[ClimateConnectData]):
         self._boilers: list[BoilerInfo] = []
         self._skipped: set[str] = set()
         self._fault_texts: dict[str, dict[int, FaultText]] = {}
+        self._energy_days: dict[str, list[EnergyDay]] = {}
         self._holds: dict[str, _Hold] = {}
         self._unsub_confirm: CALLBACK_TYPE | None = None
         self._slow_due: datetime | None = None
@@ -318,6 +320,7 @@ class ClimateConnectCoordinator(DataUpdateCoordinator[ClimateConnectData]):
             faults=faults,
             tariff=tariff,
             fault_texts=self._fault_texts.get(serial, {}),
+            energy_days=self._energy_days.get(serial, []),
         )
 
     def _apply_hold(self, boiler: BoilerData, now: datetime) -> None:
@@ -348,6 +351,7 @@ class ClimateConnectCoordinator(DataUpdateCoordinator[ClimateConnectData]):
         try:
             for serial, boiler in data.boilers.items():
                 days = await self.client.async_get_energy_days(serial, now)
+                self._energy_days[serial] = boiler.energy_days = days
                 name = f"{boiler.info.model or DEFAULT_MODEL} {serial}"
                 async_import_energy(self.hass, serial, name, days)
         except ClimateConnectAuthError, ClimateConnectUnexpectedPageError:

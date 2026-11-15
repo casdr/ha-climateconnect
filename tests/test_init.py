@@ -42,8 +42,9 @@ pytestmark = pytest.mark.usefixtures("mock_client")
 
 
 async def setup(hass: HomeAssistant, entry: MockConfigEntry) -> None:
-    """Add and set up the entry."""
-    entry.add_to_hass(hass)
+    """Add (if needed) and set up the entry."""
+    if entry.entry_id not in {e.entry_id for e in hass.config_entries.async_entries()}:
+        entry.add_to_hass(hass)
     assert await hass.config_entries.async_setup(entry.entry_id)
     await hass.async_block_till_done()
 
@@ -90,9 +91,14 @@ async def test_setup_and_states(
     assert state("sensor", "hot_water").state == "83.0"
     assert float(state("sensor", "power").state) == 0
     assert state("sensor", "power").attributes["unit_of_measurement"] == "W"
-    assert state("sensor", "energy_consumption").state == "0.33"
-    assert "state_class" not in state("sensor", "energy_consumption").attributes
     assert state("sensor", "legionella_timer").state == "168"
+    today = state("sensor", "energy_today")
+    assert today.state == "9.8"
+    assert today.attributes["costs"] == 2.25
+    assert today.attributes["statistic_id"] == f"climateconnect:{SERIAL.lower()}_energy"
+    yesterday = state("sensor", "energy_yesterday")
+    assert yesterday.state == "8.6"
+    assert yesterday.attributes["costs"] == 1.98
     assert state("sensor", "connection_state").state == "online"
     assert state("sensor", "tariff").state == "0.23"
     assert state("sensor", "tariff").attributes["start_date"] == "2025-06-17"
@@ -441,7 +447,7 @@ async def test_connection_error_backs_off(
 
 
 async def test_energy_statistics(
-    hass: HomeAssistant, config_entry: MockConfigEntry
+    hass: HomeAssistant, config_entry: MockConfigEntry, client: FakeClient
 ) -> None:
     """Energy use and costs are imported with running sums."""
     with patch(
@@ -452,7 +458,7 @@ async def test_energy_statistics(
     assert energy.args[1]["statistic_id"] == f"climateconnect:{SERIAL.lower()}_energy"
     assert energy.args[1]["unit_of_measurement"] == "kWh"
     assert [row["sum"] for row in energy.args[2]] == pytest.approx([8.6, 18.4])
-    assert energy.args[2][0]["start"] == datetime(2026, 11, 13, tzinfo=UTC)
+    assert energy.args[2][0]["start"] == client.energy[0].start
     assert costs.args[1]["statistic_id"] == f"climateconnect:{SERIAL.lower()}_costs"
     assert [row["sum"] for row in costs.args[2]] == pytest.approx([1.98, 4.23])
 
@@ -620,3 +626,31 @@ async def test_unload_removes_issue(
     assert ir.async_get(hass).async_get_issue(DOMAIN, issue_id)
     assert await hass.config_entries.async_unload(config_entry.entry_id)
     assert not ir.async_get(hass).async_get_issue(DOMAIN, issue_id)
+
+
+async def test_removed_energy_sensor_is_cleaned_up(
+    hass: HomeAssistant, config_entry: MockConfigEntry
+) -> None:
+    """The energy consumption sensor of earlier versions is removed."""
+    config_entry.add_to_hass(hass)
+    registry = er.async_get(hass)
+    old = registry.async_get_or_create(
+        "sensor",
+        DOMAIN,
+        f"{SERIAL}_energy_consumption",
+        config_entry=config_entry,
+    )
+    await setup(hass, config_entry)
+    assert registry.async_get(old.entity_id) is None
+
+
+async def test_energy_today_without_row(
+    hass: HomeAssistant, config_entry: MockConfigEntry, client: FakeClient
+) -> None:
+    """Without a row for today the sensor is unknown, not zero."""
+    client.energy = client.energy[:1]
+    await setup(hass, config_entry)
+    state = hass.states.get(entity_id(hass, "sensor", "energy_today"))
+    assert state
+    assert state.state == "unknown"
+    assert state.attributes["costs"] is None
