@@ -36,7 +36,7 @@ set_tariff:
         number:
           min: 0
           max: 10
-          step: 0.0001
+          step: 0.001
           mode: box
           unit_of_measurement: EUR/kWh
     start_date:
