@@ -5,9 +5,11 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from homeassistant.components.select import SelectEntity
+from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers import entity_registry as er
 
 from .api import DeviceMode
-from .const import DEFAULT_TEMPERATURE
+from .const import DOMAIN
 from .entity import ClimateConnectEntity, async_add_boiler_entities
 
 if TYPE_CHECKING:
@@ -68,10 +70,18 @@ class ClimateConnectModeSelect(ClimateConnectEntity, SelectEntity):
         temperature = None
         schedule = None
         if mode is DeviceMode.CONTINUOUS:
-            # The app always sends the setpoint with Continuous mode.
-            temperature = (
-                boiler.mode.temperature if boiler else None
-            ) or DEFAULT_TEMPERATURE
+            # The app always sends the setpoint with Continuous mode. Only send one
+            # the boiler reported; without it the user sets one on the Setpoint.
+            temperature = boiler.mode.temperature if boiler else None
+            if temperature is None:
+                setpoint = er.async_get(self.hass).async_get_entity_id(
+                    "number", DOMAIN, f"{self._serial}_setpoint"
+                )
+                raise ServiceValidationError(
+                    translation_domain=DOMAIN,
+                    translation_key="setpoint_unknown",
+                    translation_placeholders={"entity_id": setpoint or "Setpoint"},
+                )
         elif mode is DeviceMode.SCHEDULE and boiler:
             schedule = boiler.mode.schedule
         await self.async_write_and_hold(

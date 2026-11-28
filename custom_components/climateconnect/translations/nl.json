@@ -262,6 +262,9 @@
     },
     "vacation_in_past": {
       "message": "De vakantieperiode is al voorbij. Stel eerst een nieuw einde in."
+    },
+    "setpoint_unknown": {
+      "message": "De boiler heeft geen insteltemperatuur doorgegeven. Stel de watertemperatuur in op {entity_id}; dat kiest de modus Continu."
     }
   },
   "issues": {
