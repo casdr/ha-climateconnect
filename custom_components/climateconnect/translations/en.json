@@ -262,6 +262,9 @@
     },
     "vacation_in_past": {
       "message": "The vacation period has already ended. Set a new vacation end first."
+    },
+    "setpoint_unknown": {
+      "message": "The boiler has not reported a setpoint. Set the water temperature on {entity_id}; that selects Continuous mode."
     }
   },
   "issues": {

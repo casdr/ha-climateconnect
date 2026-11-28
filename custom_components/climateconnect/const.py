@@ -31,8 +31,6 @@ MAX_BACKOFF: Final = timedelta(minutes=30)
 # are not known; it was seen sending 65 and 75 degrees.
 MIN_TEMPERATURE: Final = 40
 MAX_TEMPERATURE: Final = 80
-# Sent with Continuous mode when the boiler has not reported a setpoint.
-DEFAULT_TEMPERATURE: Final = 65
 
 WEEKDAYS: Final = (
     "monday",

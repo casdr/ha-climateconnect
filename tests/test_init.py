@@ -554,18 +554,24 @@ async def test_changes_held_until_reported(
 async def test_continuous_without_setpoint(
     hass: HomeAssistant, config_entry: MockConfigEntry, client: FakeClient
 ) -> None:
-    """Continuous mode is sent with a default setpoint if none is known."""
+    """Continuous mode without a known setpoint points at the Setpoint entity."""
     client.mode = type(client.mode)(
         mode=DeviceMode.HOLIDAY, temperature=None, schedule={}
     )
     await setup(hass, config_entry)
-    await hass.services.async_call(
-        "select",
-        "select_option",
-        {"entity_id": entity_id(hass, "select", "mode"), "option": "continuous"},
-        blocking=True,
-    )
-    assert client.calls[-1][2]["temperature"] == 65
+    calls = len(client.calls)
+    with pytest.raises(ServiceValidationError) as err:
+        await hass.services.async_call(
+            "select",
+            "select_option",
+            {"entity_id": entity_id(hass, "select", "mode"), "option": "continuous"},
+            blocking=True,
+        )
+    assert err.value.translation_key == "setpoint_unknown"
+    assert err.value.translation_placeholders == {
+        "entity_id": entity_id(hass, "number", "setpoint")
+    }
+    assert len(client.calls) == calls
 
 
 async def test_boiler_refused_is_skipped(
