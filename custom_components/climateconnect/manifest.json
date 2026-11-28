@@ -1,6 +1,9 @@
 {
   "domain": "climateconnect",
   "name": "Itho Daalderop ClimateConnect",
+  "categories": [
+    "climate.water_heaters"
+  ],
   "codeowners": [
     "@casdr"
   ],
